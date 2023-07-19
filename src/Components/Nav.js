@@ -6,9 +6,9 @@ const Nav = ({ minimal, authToken }) => {
   return (
     <nav>
       <div className="logo-container">
-        <img src={minimal ? colorLogo : logo} alt="hangMate" className="logo" />
+        <img src={minimal ? logo : colorLogo} alt="hangMate" className="logo" />
       </div>
-      {!authToken && <Button className="nav-button">Log in</Button>}
+      {!authToken && !minimal && <Button className="nav-button">Log in</Button>}
     </nav>
   );
 };
