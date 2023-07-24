@@ -2,13 +2,25 @@ import logo from "../Images/TripMate.png";
 import colorLogo from "../Images/HangMate-logo.jpeg";
 import { Button } from "react-bootstrap"; // Import Button from 'react-bootstrap' instead of 'bootstrap'
 
-const Nav = ({ minimal, authToken }) => {
+const Nav = ({ minimal, authToken, setShowModal, showModal }) => {
+  const handleClick = () => {
+    setShowModal(true);
+  };
+
   return (
     <nav>
       <div className="logo-container">
-        <img src={minimal ? logo : colorLogo} alt="hangMate" className="logo" />
+        <img src={minimal ? colorLogo : logo} alt="hangMate" className="logo" />
       </div>
-      {!authToken && !minimal && <Button className="nav-button">Log in</Button>}
+      {!authToken && !minimal && (
+        <Button
+          className="nav-button"
+          onClick={handleClick}
+          disabled={showModal}
+        >
+          Log in
+        </Button>
+      )}
     </nav>
   );
 };
