@@ -2,9 +2,10 @@ import logo from "../Images/TripMate.png";
 import colorLogo from "../Images/HangMate-logo.jpeg";
 import { Button } from "react-bootstrap"; // Import Button from 'react-bootstrap' instead of 'bootstrap'
 
-const Nav = ({ minimal, authToken, setShowModal, showModal }) => {
+const Nav = ({ minimal, authToken, setShowModal, showModal, setIsSignup }) => {
   const handleClick = () => {
     setShowModal(true);
+    setIsSignup(false);
   };
 
   return (

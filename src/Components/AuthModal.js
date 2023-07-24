@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 
-const AuthModal = ({setShowModal}) => {
+const AuthModal = ({setShowModal, isSignup}) => {
 
 
   const [email, setEmail] = useState(null);
@@ -12,15 +12,22 @@ const AuthModal = ({setShowModal}) => {
   console.log(email,password,confirmPassword);
 
 
+// handleClick & handleSubmit section code 
+
   const handleClick = ()=> {
     setShowModal(false)
   }
 
-
-  const isSignup = false;
-
   const handleSubmit = (e)=> {
     e.preventDefault();
+    try {
+      if (isSignup && (password !== confirmPassword)) {
+        setError("Password need to match!")
+      } 
+      console.log('make a post request to our database')
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (<div className="auth-modal">
@@ -44,13 +51,14 @@ const AuthModal = ({setShowModal}) => {
       required={true}
       onChange={(e) => setPassword(e.target.value)}
        />
-      <input type="Password"
+      { isSignup && <input type="Password"
       id="password-check"
       placeholder="Confirm Password"
       name="Password-check"
       required={true}
       onChange={(e) => setConfirmPassword(e.target.value)}
        />
+       }
        <input className="secondary-button" type="submit" />
        <p>{error}</p>
     </form>
