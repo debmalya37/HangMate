@@ -11,7 +11,7 @@ const OnBoarding = () => {
     dob_month: '',
     dob_year: '',
     show_gender: false,
-    gender_indentity: 'man',
+    gender_identity: 'man',
     gender_interest: 'woman',
     email: '',
     url: '',
@@ -95,7 +95,7 @@ const OnBoarding = () => {
             name="gender_identity"
             value="man"
             onChange={handleChange}
-            checked={formData.gender_indentity === 'man'}
+            checked={formData.gender_identity === 'man'}
             />
             <label htmlFor="man_gender-identity">Man</label>
             <input 
@@ -104,7 +104,7 @@ const OnBoarding = () => {
             name="gender_identity"
             value="woman"
             onChange={handleChange}
-            checked={formData.gender_indentity === 'woman'}
+            checked={formData.gender_identity === 'woman'}
             />
             <label htmlFor="woman_gender-identity">Woman</label>
             <input 
@@ -113,7 +113,7 @@ const OnBoarding = () => {
                 name="gender_identity"
                 value="more"
                 onChange={handleChange}
-                checked={formData.gender_indentity === 'more'}
+                checked={formData.gender_identity === 'more'}
                 />
                 <label htmlFor="more_gender-identity">More</label>
                 </div>
@@ -121,7 +121,7 @@ const OnBoarding = () => {
                 <input 
                 id="show-gender" 
                 type="checkbox" 
-                name="show-gender"
+                name="show_gender"
                 onChange={handleChange}
                 checked={formData.show_gender}
                 />
