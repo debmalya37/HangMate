@@ -16,13 +16,12 @@ const Home = () => {
     <div className="overlay">
       <Nav
         minimal={false}
-        authToken={authToken}
         setShowModal={setShowModal}
         showModal={showModal}
         setIsSignup={setIsSignup}
       />
       <div className="home">
-        <h1>Swipe Right</h1>
+        <h1 className="primary-title">Let's Hang Out Together</h1>
         <button className="primary-button" onClick={handleClick}>
           {authToken ? "Signout" : "Create Account"}
         </button>
