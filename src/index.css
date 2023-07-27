@@ -154,6 +154,7 @@ nav .logo-container .logo {
     flex-direction: column;
     width: 35%;
     padding: 1.5rem;
+    text-align: start;
 }
 .onboarding form input {
     padding: 1rem;
@@ -188,6 +189,9 @@ nav .logo-container .logo {
 }
 .onboarding form input[type="radio"] {
     display:  none;
+}
+.onboarding form input[type="number"] {
+    width: 10%;
 }
 .onboarding form input[type="radio"]:checked + label {
     border: solid 2px rgb(221,39,22);
