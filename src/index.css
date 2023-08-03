@@ -210,7 +210,12 @@ nav .logo-container .logo {
 
 }
 
+/* ----------Dashboard----------- */
 /*  -------Dashboard.js----------- */
+.dashboard {
+    display: flex;
+    justify-content: space-between;
+}
 
 .swipe {
     position: absolute;
@@ -249,3 +254,5 @@ nav .logo-container .logo {
     margin: 10px;
     color: #fff;
   }
+
+
