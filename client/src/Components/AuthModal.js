@@ -1,18 +1,14 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const AuthModal = ({ setShowModal, isSignup }) => {
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [confirmPassword, setConfirmPassword] = useState(null);
-  const [error, setError] = useState(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
 
   let navigate = useNavigate();
-
-  console.log(email, password, confirmPassword);
-
-  // handleClick & handleSubmit section code
 
   const handleClick = () => {
     setShowModal(false);
@@ -22,15 +18,17 @@ const AuthModal = ({ setShowModal, isSignup }) => {
     e.preventDefault();
     try {
       if (isSignup && password !== confirmPassword) {
-        setError("Password need to match!");
+        setError("Password needs to match!");
         return;
       }
+
       console.log("posting", email, password);
-      const response = await axios.post("http://localhost:8000/signup");
+      const response = await axios.post("http://localhost:8000/signup", {
+        email,
+        password,
+      });
 
-      const success = response.status === 201;
-
-      if (success) {
+      if (response.status === 201) {
         navigate("/onboarding");
       }
     } catch (error) {
@@ -45,7 +43,7 @@ const AuthModal = ({ setShowModal, isSignup }) => {
       </div>
       <h2>{isSignup ? "CREATE ACCOUNT" : "LOG IN"}</h2>
       <p>
-        By clicking the button below, you are agreeing to our terms and policy.{" "}
+        By clicking the button below, you are agreeing to our terms and policy.
       </p>
       <form onSubmit={handleSubmit}>
         <input
@@ -59,22 +57,24 @@ const AuthModal = ({ setShowModal, isSignup }) => {
         <input
           type="password"
           id="password"
-          placeholder="password"
+          placeholder="Password"
           name="password"
           required={true}
           onChange={(e) => setPassword(e.target.value)}
         />
         {isSignup && (
           <input
-            type="Password"
+            type="password"
             id="password-check"
             placeholder="Confirm Password"
-            name="Password-check"
+            name="password-check"
             required={true}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         )}
-        <input className="secondary-button" type="submit" />
+        <button className="secondary-button" type="submit">
+          Submit
+        </button>
         <p>{error}</p>
       </form>
       <hr />
@@ -83,4 +83,5 @@ const AuthModal = ({ setShowModal, isSignup }) => {
     </div>
   );
 };
+
 export default AuthModal;

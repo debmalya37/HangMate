@@ -13,6 +13,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Define your JWT secret here
+const JWT_SECRET = "your_jwt_secret_key";
+
 app.get("/", (req, res) => {
   res.json("WELCOME TO THE BACKEND OF TRIPMATE WEB APP");
 });
@@ -35,7 +38,7 @@ app.post("/signup", async (req, res) => {
     const existingUser = await users.findOne({ email });
 
     if (existingUser) {
-      return res.status(409).send("user already exists. Please Login");
+      return res.status(409).send("User already exists. Please login.");
     }
 
     const sanitizedEmail = email.toLowerCase();
@@ -46,11 +49,14 @@ app.post("/signup", async (req, res) => {
       hashed_password: hashedPassword,
     };
 
-    const insertedUser = await users.insertOne(data);
+    await users.insertOne(data);
 
-    const token = jwt.sign(insertedUser, sanitizedEmail, {
-      expiresIn: 60 * 24,
-    });
+    const token = jwt.sign(
+      { user_id: generateduserId, email: sanitizedEmail },
+      JWT_SECRET,
+      { expiresIn: "1d" }
+    );
+
     res
       .status(201)
       .json({ token, userId: generateduserId, email: sanitizedEmail });
@@ -62,18 +68,6 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-app.get("/users", async (req, res) => {
-  const client = new MongoClient(uri);
-
-  try {
-    await client.connect();
-    const database = client.db("app-data");
-    const users = database.collection("users");
-    const returnedUsers = await users.find().toArray();
-    res.send(returnedUsers);
-  } finally {
-    await client.close();
-  }
-});
+// ... (other routes)
 
 app.listen(PORT, () => console.log("Server running on PORT " + PORT));
