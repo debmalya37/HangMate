@@ -1,5 +1,4 @@
 const express = require("express");
-const { JsonWebTokenError } = require("jsonwebtoken");
 const { MongoClient } = require("mongodb");
 const { v4: uuidv4 } = require("uuid");
 const jwt = require("jsonwebtoken");
@@ -27,7 +26,7 @@ app.post("/signup", async (req, res) => {
   const generateduserId = uuidv4();
 
   //password hashing
-  const hashedpassword = await bcrypt.hash(password, 10);
+  const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
     await client.connect();
@@ -44,7 +43,7 @@ app.post("/signup", async (req, res) => {
     const data = {
       user_id: generateduserId,
       email: sanitizedEmail,
-      hashed_password: hashedpassword,
+      hashed_password: hashedPassword,
     };
 
     const insertedUser = await users.insertOne(data);
