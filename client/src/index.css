@@ -216,14 +216,20 @@ nav .logo-container .logo {
     display: flex;
     justify-content: space-between;
 }
+
+/* good for mobile view not for desktop view!! */
 .dashboard .swiper-container{
     width: 70%;
+    position: relative;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    height: 100vh;
-    margin-top:4rem ;
-}
+    height: 10vh;
+    align-items: center;
+    justify-items: center;
+    left: 1rem;
+
+}   
 
  .swipe {
     position: absolute;
@@ -235,13 +241,17 @@ nav .logo-container .logo {
   }
   
   .card {
-
+    display: flex;
+    align-self: center;
+    justify-self: center;
     background-color: #fff;
     width: 400px;
     height: 650px;
     border-radius: 30px;
     background-size: cover;
     background-position: center;
+    margin-left: 0;
+    
   }
 
   .swipe:last-of-type {
@@ -249,7 +259,23 @@ nav .logo-container .logo {
   }
   
   .card h3 {
-    margin-top: 0;
+    position: absolute;
+    bottom: 10px;
+    left:28% ;
+    background-color: rgb(0, 0, 0);
+    opacity: 50%;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+    align-content: center;
+    align-self: center;
+  }
+  .card h3 {
+    color: #fff;
+    z-index: 0;
   }
 
 .dashboard .swipe-info {
@@ -315,4 +341,12 @@ nav .logo-container .logo {
     padding: 20px;
     display: flex;
     flex-direction: column;
+}
+/* Explore Tab */
+
+.postfeed{
+    display: flex;
+    flex-wrap: wrap;
+    background-color: rgb(203, 203, 44);
+
 }

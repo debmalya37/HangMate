@@ -1,8 +1,33 @@
 import TinderCard from "react-tinder-card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+import axios from "axios";
 import ChatContainer from "../Components/ChatContainer.js";
 
 const Dashboard = () => {
+  const [user, setUser] = useState(null);
+  const [cookies, setCookie] = useCookies(["user"]);
+
+  const userId = cookies.UserId;
+  const getUser = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/user", {
+        params: { userId },
+      });
+      console.log("userId before setting cookie:", userId);
+      setCookie("UserId", userId);
+      console.log("userId after setting cookie:", userId);
+
+      setUser(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getUser();
+  }, []);
+  console.log("user", user);
+
   const characters = [
     {
       name: "Richard Hendricks",
@@ -37,7 +62,7 @@ const Dashboard = () => {
   };
   return (
     <div className="dashboard">
-    <ChatContainer/>
+      <ChatContainer />
       <div className="swiper-container">
         <div className="card-container">
           {characters.map((character) => (
@@ -45,7 +70,8 @@ const Dashboard = () => {
               className="swipe"
               key={character.name}
               onSwipe={(dir) => swiped(dir, character.name)}
-              onCardLeftScreen={() => outOfFrame(character.name)}>
+              onCardLeftScreen={() => outOfFrame(character.name)}
+            >
               <div
                 style={{ backgroundImage: "url(" + character.url + ")" }}
                 className="card"
@@ -55,7 +81,7 @@ const Dashboard = () => {
             </TinderCard>
           ))}
           <div className="swipe-info">
-            {lastDirection ? <p>You swiped {lastDirection}</p> : <p/> }
+            {lastDirection ? <p>You swiped {lastDirection}</p> : <p />}
           </div>
         </div>
       </div>
