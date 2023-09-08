@@ -6,18 +6,14 @@ import ChatContainer from "../Components/ChatContainer.js";
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);
-  const [cookies, setCookie] = useCookies(["user"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]); // Corrected cookie name
 
-  const userId = cookies.UserId;
+  const userId = cookies.UserId; // Corrected cookie name
   const getUser = async () => {
     try {
       const response = await axios.get("http://localhost:8000/user", {
         params: { userId },
       });
-      console.log("userId before setting cookie:", userId);
-      setCookie("UserId", userId);
-      console.log("userId after setting cookie:", userId);
-
       setUser(response.data);
     } catch (error) {
       console.log(error);
@@ -25,7 +21,7 @@ const Dashboard = () => {
   };
   useEffect(() => {
     getUser();
-  }, []);
+  }, [user]);
   console.log("user", user);
 
   const characters = [
